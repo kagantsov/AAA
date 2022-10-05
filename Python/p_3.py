@@ -127,4 +127,4 @@ def count_words(text: str) -> dict:
 
 
 if __name__ == '__main__':
-    print(check_points((0.0, 1.0)
+    print(check_points((0.0, 1.0)))
