@@ -42,7 +42,8 @@ class CountVectorizer():
 
 
 class TfidfTransformer:
-    def tf_transform(self, matrix: list[list[int]]) -> list[list[float]]:
+    @staticmethod
+    def tf_transform(matrix: list[list[int]]) -> list[list[float]]:
         freq_list = []
         sum_word = 0
         for one_list in matrix:
@@ -54,10 +55,11 @@ class TfidfTransformer:
             freq_list.append(sentence_tf)
         return freq_list
 
-    def idf_transform(self, matrix: list[list[int]]) -> list[float]:
+    @staticmethod
+    def idf_transform(matrix: list[list[int]]) -> list[float]:
         docs_count = len(matrix)
         colm_len = len(matrix[0])
-        idf = []
+        idf: list[float] = []
         for i in range(colm_len):
             counter = 0
             for doc in matrix:
@@ -66,7 +68,8 @@ class TfidfTransformer:
             idf.append(log((docs_count + 1) / (counter + 1)) + 1)
         return idf
 
-    def count_pos(self, matrix: list[int]) -> int:
+    @staticmethod
+    def count_pos(matrix: list[int]) -> int:
         counter = 0
         for elem in matrix:
             if elem > 0:
