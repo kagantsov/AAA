@@ -1,6 +1,7 @@
 import json
 from typing import Iterator
 from keyword import iskeyword
+import functools
 
 
 class PythonAttribute:
@@ -24,20 +25,26 @@ class PythonAttribute:
 
 
 class ColorizeMixin:
-    """Миксин, который позволяет раскрасить вывод информации"""
+    """Окрашивает текст в заданыный цвет"""
+    def __init_subclass__(cls, *args, **kwargs):
+        super().__init_subclass__(*args, **kwargs)
+        cls.__repr__ = cls._replace_repr(cls.__repr__)
 
-    def __init__(self, color):
-        self.color = color
+    @classmethod
+    def _replace_repr(cls, func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            text = func(*args, **kwargs)
+            return f'\033[1;{str(cls.repr_color)};40m{text}\033[1;0;40m'
+        return wrapper
 
-    def __str__(self):
-        return f'\033[1;{self.color}m' + self.__repr__()
 
-
-class Advert(ColorizeMixin):
+class Advert(ColorizeMixin, PythonAttribute):
     """Класс, преобразующий вложенную структуру из JSON в словарь или список"""
+    repr_color = 33
 
-    def __init__(self, advert, color=0):
-        super().__init__(color)
+    def __init__(self, advert):
+        super().__init__()
         self.price = 0
         self.title = ''
         for item in advert:
@@ -72,7 +79,7 @@ if __name__ == '__main__':
     }"""
 
     lesson1 = json.loads(lesson_str1)
-    lesson_ad1 = Advert(lesson1, color=33)
+    lesson_ad1 = Advert(lesson1)
     print(lesson_ad1.location.metro_stations)
 
     lesson_str2 = """{
