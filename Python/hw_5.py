@@ -57,7 +57,7 @@ class Advert(ColorizeMixin, PythonAttribute):
     @property
     def price(self) -> int:
         """Геттер для параметра "цена". Если цена не установлена - устанавливает 0 по умолчанию"""
-        return self.price
+        return self._price
 
     @price.setter
     def price(self, price):
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     lesson1 = json.loads(lesson_str1)
     lesson_ad1 = Advert(lesson1)
-    print(lesson_ad1.location.metro_stations)
+    print(lesson_ad1)
 
     lesson_str2 = """{
         "title": "Вельш-корги",
