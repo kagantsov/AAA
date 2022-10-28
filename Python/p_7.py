@@ -43,7 +43,7 @@ class Color:
         return hash(self.rgb)
 
     def __mul__(self, contrast):
-        """Уменьшение контраста по формле для изменения яркости"""
+        """Уменьшение контраста по формуле для изменения яркости"""
         if not (isinstance(contrast, float) or isinstance(contrast, int)):
             raise TypeError(f"{type(contrast)} != float")
 
