@@ -12,7 +12,7 @@ print(1 - binom.cdf(k=19, n=30, p=0.5))
 print(binom.ppf(0.9506314266473055, n=30, p=0.5))
 print(binom.ppf(0.94, n=30, p=0.5))
 
-# Верхник порог альфы
+# Верхний порог альфы
 alpha_max = 0.05
 x = binom.ppf(1 - alpha_max, n=30, p=0.5)
 print(x)
